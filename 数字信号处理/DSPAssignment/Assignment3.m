@@ -1,0 +1,13 @@
+n = 0:0.1:4*pi;
+x = sin(n);
+y = sign(x);
+subplot(211);
+stem(n,x);
+title( ' 输入信号 ' );
+xlabel( 'n' );
+ylabel( 'x(n)' );
+subplot(212);
+stem(n,y);
+title( ' 输出信号 ' );
+xlabel( 'n' );
+ylabel( 'y(n)' );
