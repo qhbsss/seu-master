@@ -19,7 +19,7 @@
 %\end{empAbstract}
 
 %%%%%%%%首页角注，依次为实验时间、报告时间、学号、email
-\empfirstfoot{2022.12至2023.1}{}{220221878}{}
+\empfirstfoot{2022.12至2023.2}{}{220221878}{}
 
 
 % 如果首页脚注有重复就调整下一行的数值直到正常
@@ -114,12 +114,18 @@
 设计一个正弦波或方波的离散时间信号发生器，分析其系统函数 H(z)，
 利用其实现结构给出仿真结果。
 \\解答：使用符号函数来实现信号发生器，$y(n)=Asign(x(n))$，当$x(n)=sin(2\pi fnT)$时，可以实现方波信号的产生，当$x(n)=sin(2\pi fnT)\ge0, y(n)=A,x(n)=sin(2\pi fnT)<0, y(n)=-A$，同时由于输入信号$x(n)=sin(2\pi fnT)$在一个周期内正负信号持续时间相等，即可实现方波信号发生器。
-\\该信号发生器的系统函数为$H(z)=\frac{A}{1-z^{-1}}$，由于该系统比较简单，使用直接型结构就可实现，如图\ref{Fig3}所示，经过Matlab仿真验证，发现该信号发生器系统的确能够产生方波信号，结果如图\ref{Fig4}所示。
+\\该信号发生器的系统函数为$H(z)=\frac{A}{1-z^{-1}}$，由于该系统比较简单，使用直接型结构就可实现，如图\ref{Fig3}所示，用Simulink实现其结构如图\ref{simulink}所示，经过Matlab仿真验证，发现该信号发生器系统的确能够产生方波信号，结果如图\ref{Fig4}所示。
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
 	\centering %图片居中
 	\includegraphics[width=1\textwidth]{"符号函数.pdf"} %插入图片，[]中设置图片大小，{}中是图片文件名
 	\caption{方波发生器直接型结构} %最终文档中希望显示的图片标题
 	\label{Fig3} %用于文内引用的标签
+\end{figure}
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+	\centering %图片居中
+	\includegraphics[width=1\textwidth]{"../DSPAssignment/方法发生器simulink.png"} %插入图片，[]中设置图片大小，{}中是图片文件名
+	\caption{方波发生器直接型结构Simulink仿真} %最终文档中希望显示的图片标题
+	\label{simulink} %用于文内引用的标签
 \end{figure}
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
 	\centering %图片居中
@@ -141,7 +147,7 @@ $$
 y(n)=\sum_{i=0}^N b_i x(n-i)-\sum_{i=1}^M a_i y(n-i)
 $$
 式中, $\mathrm{x}(\mathrm{n})$ 为输入序列; $\mathrm{y}(\mathrm{n})$ 为输出序列; $a_i$ 和 $b_i$ 为滤波器系数。
-\\理论计算：
+\subsection{理论计算}
 \begin{enumerate}
 	\item 脉冲响应不变法：\\$\omega=\Omega T$, 令 $T=1$，采用巴特沃斯滤波器设计法，$H^2|\Omega|=|H(j \Omega)|^2=\frac{1}{1+\left(\frac{j \Omega}{j \Omega c}\right)^{2 N}}$，取$\Omega_1=\frac{\omega}{T}=\frac{0.2613 \pi}{T}, \quad \Omega_2=\frac{\omega}{T}=\frac{0.4018 \pi}{T}$，根据巴特沃斯滤波器的表达式列出所需满足的条件，\\$\left\{\begin{array}{l}-10 \lg \left[1+\left(\frac{j \frac{0.2613 \pi}{T}}{j \Omega_c}\right)^{2 N}\right]=-0.75 \\ -10 \lg \left[1+\left(\frac{j \frac{0.4018 \pi}{T}}{j \Omega_c}\right)^{2 N}\right]=-20\end{array}\right.$，解得$\left\{\begin{array}{l}\Omega^{\prime}_c=\frac{0.2913 \pi}{T} \\ N^{\prime}=7.28\end{array}\right.$，\\取 $\mathrm{N}=8$, 则 $\Omega_\mathrm{c}=0.9472$
 	\\由 $1+\left(\frac{S}{j \Omega_c}\right)^{2 N}=0$
@@ -155,7 +161,7 @@ $$
 	$$
 	\\数字滤波器的系数函数为将 $\mathrm{S_k} \rightarrow \mathrm{e}^{\mathrm{S_kT}}$
 	$$
-	H(z)=\sum_{k=1}^8 \frac{A k}{1-e^{S_k T} z^{-1}}
+	H(z)=\sum_{k=1}^8 \frac{A_k}{1-e^{S_k T} z^{-1}}
 	$$
 	\item 双线性变换法
 	\\$\Omega=\frac{2}{T} \operatorname{tg} \frac{\omega}{2},
@@ -171,9 +177,8 @@ $$
 	$$
 	数字滤波器的系数函数为：$ H(z)=\left.H(s)\right|_{s=\frac{2}{T} \cdot \frac{1-z^{-1}}{1+z^{-1}}}=\frac{\Omega_c^7}{\prod_{k=1}^7\left(\frac{2}{T} \cdot \frac{1-z^{-1}}{1+z^{-1}}-S_k\right)}$
 \end{enumerate}
-Matlab仿真：
-\\仿真代码如下，两种方法设计的滤波器的仿真结果分别如图\ref{Fig5}、\ref{Fig6}所示。由 MATLAB 仿真结果可知， 两种方法算出的模拟滤波器阶数以及截止频率均与理论计算结果相同，同时观察两者的频率特性响应图像也可以看出，数字滤波器的通带与阻带的衰减范围都符合一开始设定的数字指标要求，因此设计的 IIR 数字滤波器可以满足要求。 而两种方法也有
-不同之处，如本实验中对于相同的数字指标，脉冲响应不变法比双线性变换法所得到的滤波器阶数更高，同时由于脉冲响应法的混叠影响，根据图像可以看出，脉冲响应不变法设计的低通滤波器相比于双线性变换法在过渡带下降比较平缓、特性较差。
+\subsection{Matlab仿真验证}
+仿真代码如下，两种方法设计的滤波器的仿真结果分别如图\ref{Fig5}、\ref{Fig6}所示。
 \lstset{language=Matlab}
 \begin{lstlisting}
 	fp=0.2613*pi;fs=0.4018*pi;rp=0.75;rs=20;f=1; %设计指标
@@ -202,5 +207,50 @@ Matlab仿真：
 	\caption{双线性变换法} %最终文档中希望显示的图片标题
 	\label{Fig6} %用于文内引用的标签
 \end{figure}
-
+\subsection{结果分析}
+\begin{enumerate}
+	\item 冲激响应不变法- 优点：完全模仿模拟滤波器的单位冲激响应，即时域逼近良好；线性相位的模拟滤波器通过冲激响应不变法得到的仍为线性相位的数字滤波器。缺点：频率响应的混叠效应。
+	\item 双线性变换法- 优点：避免了频率响应的混叠效应。	缺点：不再保持原有的线性相位，呈分段常数型；各个分段边缘的临界频率点产生了畸变。
+\end{enumerate}
+由 MATLAB 仿真结果可知，两种方法算出的模拟滤波器阶数以及截止频率均与理论计算结果相同，同时观察两者的频率特性响应图像也可以看出，数字滤波器的通带与阻带的衰减范围都符合一开始设定的数字指标要求，因此设计的 IIR 数字滤波器可以满足要求。 而两种方法也有
+不同之处，如本实验中对于相同的数字指标，脉冲响应不变法比双线性变换法所得到的滤波器阶数更高，同时由于脉冲响应法的混叠影响，根据图像可以看出，脉冲响应不变法设计的低通滤波器相比于双线性变换法在过渡带下降比较平缓、特性较差。
+\subsection{滤波器设计方法改进}
+冲激响应不变法是从滤波器的单位抽样响应出发，使数字滤波器的单位抽样响应h(n)逼近模拟滤波器的单位抽样响应h(t),频率间的变化是线性变换关系，克服了双线性变换法中非线性频率变换带来的临界频率点的频率畸变，所以是最简单、最直接的把s平面映射到z平面的映射方法。但是该方法要求模拟滤波器是严格带限于抽样频率的1/2,如果不满足该要求，数字滤波器的频率响应将产生混叠失真。如果通过“模拟—模拟频带变换”方法设计IIR数字高通或者带阻滤波器，冲激响应法确实会产生混叠失真现象，但如果通过“数字—数字频带变换”方法则不存在该问题。因为该方法的数字化过程是将模拟低通滤波器的系统函数映射为数字低通滤波器的系统函数，而模拟低通滤波器是严格带限于抽样频率的1/2、是抗混叠的，所以不会出现频率混叠失真现象。
+\\“数字—数字频带变换”的实质就是从数字低通滤波器的Z平面映射到另一个待求所需类型数字滤波器的z平面的变化关系，关键点是找到Z到z的映射函数$Z^{-1}=G(z^{-1})$。查阅资料可知，$
+Z^{-1}=G\left(z^{-1}\right)=\frac{z^{-1}-\alpha}{1-\alpha^* z^{-1}} \cdot \frac{z^{-1}-\alpha^*}{1-\alpha z^{-1}}=\frac{z^{-2}+d_1 z^{-1}+d_2}{d_2 z^{-2}+d_1 z^{-1}+1}$，其中：$d_1=\frac{-2 \alpha}{1+k},d_2=\frac{1-k}{1+k},
+k=\tan \left(\frac{\theta_p}{2}\right) \tan \left(\frac{\omega_{p_2}-\omega_{p_1}}{2}\right),
+\alpha=\cos \left(\frac{\omega_{p_2}+\omega_{p_1}}{2}\right) / \cos \left(\frac{\omega_{p_2}-\omega_{p_1}}{2}\right)
+$由Matlab仿真，使用由冲激响应不变法设计的带阻滤波器与用数字-数字频带变换设计的带阻滤波器比较，代码如下，仿真结果如图\ref{Fig7}、\ref{Fig8}所示。由结果对比图可以看出，通过冲激响应不变法完成模拟滤波器的数字化过程设计的带阻滤波器，确实存在频谱混叠失真，不符合设计参数，达不到设计要求。而采用数字-数字频带变换方法得到的带阻滤波器则不存在混叠现象，实现了对冲激响应法设计滤波器的改进。
+\lstset{language=Matlab}
+\begin{lstlisting}
+	fp=0.2613*pi;fs=0.4018*pi;rp=0.75;rs=20;f=1; %设计指标
+	wp1=fp*f;
+	ws1=fs*f; %根据脉冲响应不变法变换数字滤波器到模拟滤波器指标
+	[N1,wc1]=buttord(wp1,ws1,rp,rs,'s');%根据模拟指标设计巴特沃斯滤波器
+	[B1,A1]=butter(N1,wc1,'s'); %得到传递函数
+	[B3,A3]=lp2bs(B1,A1,wc1,0.2*pi);%由模拟低通转化为模拟带阻
+	[num3,den3]=impinvar(B3,A3,f);%由模拟带阻转化为数字带阻
+	freqz(num3,den3);%画出数字带阻滤波器频率响应
+	bsp1=wc1-0.1*pi;bsp2=wc1+0.1*pi;%设置带阻滤波器阻带频率
+	alpha=cos((bsp1+bsp2)/2)/cos((bsp2-bsp1)/2);
+	klpha=tan((bsp1+bsp2)/2)*tan(wc1/2);
+	d1=-2*alpha/(1+klpha);
+	d2=(1-klpha)/(1+klpha);
+	Nz=[d2,d1,1];
+	Dz=[1,d1,d2];
+	[num4,den4]=mapping(num1,den1,Nz,Dz);%根据数字-数字频带变换方法由数字低通变换为数字带阻
+	freqz(num4,den4);%画出由数字-数字频带方法得到的带阻滤波器的频率响应
+\end{lstlisting}
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+	\centering %图片居中
+	\includegraphics[width=1\textwidth]{"../DSPAssignment/带阻混叠.jpg"} %插入图片，[]中设置图片大小，{}中是图片文件名
+	\caption{冲激响应不变法设计的带阻滤波器} %最终文档中希望显示的图片标题
+	\label{Fig7} %用于文内引用的标签
+\end{figure}
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+	\centering %图片居中
+	\includegraphics[width=1\textwidth]{"../DSPAssignment/带阻数字频带.jpg"} %插入图片，[]中设置图片大小，{}中是图片文件名
+	\caption{数字-数字频带变换方法得到的带阻滤波器} %最终文档中希望显示的图片标题
+	\label{Fig8} %用于文内引用的标签
+\end{figure}
 \end{document}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.3.27)  28 DEC 2022 21:54
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.3.27)  12 FEB 2023 14:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1771,44 +1771,53 @@ File: ../DSPAssignment/Assignment2.jpg Graphic file (type bmp)
 <../DSPAssignment/Assignment2.jpg>
 File: 符号函数.pdf Graphic file (type pdf)
 <use 符号函数.pdf>
+ [4]
+File: ../DSPAssignment/方法发生器simulink.png Graphic file (type bmp)
+<../DSPAssignment/方法发生器simulink.png>
 File: ../DSPAssignment/Assignment3.jpg Graphic file (type bmp)
 <../DSPAssignment/Assignment3.jpg>
- [4]
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [5]
+[6]
 Missing character: There is no 取 (U+53D6) in font [latinmodern-math.otf]/OT:scr
 ipt=math;language=dflt;!
-
-[6]
 File: ../DSPAssignment/冲激响应不变法.jpg Graphic file (type bmp)
 <../DSPAssignment/冲激响应不变法.jpg>
 File: ../DSPAssignment/双线性变换法.jpg Graphic file (type bmp)
 <../DSPAssignment/双线性变换法.jpg>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [7]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8]
-[9] (./example.aux)
+[9]
+Overfull \hbox (114.80922pt too wide) in paragraph at lines 241--242
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-Package rerunfilecheck Warning: File `example.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+File: ../DSPAssignment/带阻混叠.jpg Graphic file (type bmp)
+<../DSPAssignment/带阻混叠.jpg>
+File: ../DSPAssignment/带阻数字频带.jpg Graphic file (type bmp)
+<../DSPAssignment/带阻数字频带.jpg>
 
-Package rerunfilecheck Info: Checksums for `example.out':
-(rerunfilecheck)             Before: 8B476BEA5ACDC78BFF4507635B252C34;1872
-(rerunfilecheck)             After:  2F99711547315F0F7F5219F07F39865C;393.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11]
+[12] (./example.aux)
+Package rerunfilecheck Info: File `example.out' has not changed.
+(rerunfilecheck)             Checksum: 0B317179C32A1878A1AC423A2C49F464;819.
  ) 
 Here is how much of TeX's memory you used:
- 37102 strings out of 478866
- 748613 string characters out of 5864661
- 1369299 words of memory out of 5000000
- 56224 multiletter control sequences out of 15000+600000
+ 37177 strings out of 478866
+ 752376 string characters out of 5864661
+ 1381318 words of memory out of 5000000
+ 56295 multiletter control sequences out of 15000+600000
  430585 words of font info for 234 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  115i,13n,118p,1258b,2624s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on example.pdf (9 pages).
+Output written on example.pdf (12 pages).
